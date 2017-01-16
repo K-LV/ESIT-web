@@ -51,9 +51,10 @@ export default class CameraComponent extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.id);
-    console.log(this.props.folderId);
+    console.log(this.props.installation.id);
+    console.log(this.props.installation.folderId);
     console.log("file: ", this.refs.file);
+    console.log(this.props.installation);
 
     // var httpRequest = new XMLHttpRequest();
     // let _this = this;
@@ -298,8 +299,8 @@ export default class CameraComponent extends React.Component {
     options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
     options.params = {
-      folderId: this.props.folderId,
-      id: this.props.id,
+      folderId: this.props.installation.folderId,
+      id: this.props.installation.id,
       type: "Installation"
     }; // if we need to send parameters to the server request
     var ft = new FileTransfer();
@@ -309,8 +310,8 @@ export default class CameraComponent extends React.Component {
   desktopUploadClickHandler() {
     var fd = new FormData();
     fd.append('type', 'Installation');
-    fd.append('folderId', this.props.folderId);
-    fd.append('id', this.props.id);
+    fd.append('folderId', this.props.installation.folderId);
+    fd.append('id', this.props.installation.id);
 
     console.log(this.state.installationFiles);
     for (var i = 0; i < this.state.installationFiles.length; i++) {

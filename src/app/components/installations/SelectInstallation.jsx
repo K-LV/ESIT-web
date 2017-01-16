@@ -65,7 +65,9 @@ export default class SelectInstallation extends React.Component {
     if (this.state.selectedNum != undefined) {
       this.props.handleInstallationNext({
         selectedInstallationId: this.state.selectedInstallation.installationNumber,
-        folderId: this.state.selectedInstallation.folderId
+        folderId: this.state.selectedInstallation.folderId,
+        status: this.state.selectedInstallation.status,
+        installationObj: this.state.selectedInstallation,
       });
     }
   }
@@ -84,6 +86,7 @@ export default class SelectInstallation extends React.Component {
               <TableHeaderColumn>Scheduled Date</TableHeaderColumn>
               <TableHeaderColumn>Scheduled Time</TableHeaderColumn>
               <TableHeaderColumn>Installer</TableHeaderColumn>
+              <TableHeaderColumn>Status</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody deselectOnClickaway={false}>
@@ -94,6 +97,7 @@ export default class SelectInstallation extends React.Component {
                   <TableRowColumn>{this.getDate(row.installationDateTime)}</TableRowColumn>
                   <TableRowColumn>{this.getTime(row.installationDateTime)}</TableRowColumn>
                   <TableRowColumn>{row.installerName}</TableRowColumn>
+                  <TableRowColumn>{row.status}</TableRowColumn>
                 </TableRow>
                 ))
             : null }

@@ -18,6 +18,7 @@ import AllCustomers from './management/AllCustomers.jsx';
 import Documents from './sales/Documents.jsx';
 
 import { IP } from '../../../config/config.js';
+import { camelize } from './helpers/common.js';
 
 const defaultProps = {
   dashboard: Dashboard,
@@ -33,6 +34,15 @@ const defaultProps = {
   allEmployees: AllEmployees,
   allCustomers: AllCustomers
 };
+
+const installationStatuses = {
+  scheduled: 1,
+  documented: 2,
+  installed: 3,
+  customerSigned: 4,
+  installerSigned: 5,
+  completed: 6,
+}
 
 
 export default class App extends React.Component {
@@ -94,7 +104,16 @@ export default class App extends React.Component {
     if(obj == undefined) {
       var obj = {};
     }
-    obj['installationStepIndex']=installationStepIndex + 1;
+    console.log(obj['status']);
+    if (installationStatuses[camelize(obj['status'])] < 3) {
+      obj['installationStepIndex']=installationStatuses[camelize(obj['status'])];
+    } else {
+      if (obj['installerId']) {
+        obj['installationStepIndex']=installationStatuses[camelize(obj['status'])];
+      } else {
+        obj['installationStepIndex']=installationStatuses['documented'];
+      }
+    }
 
     this.setState(obj);
   }
